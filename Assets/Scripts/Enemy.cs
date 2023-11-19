@@ -34,5 +34,11 @@ public class Enemy : MonoBehaviour
             Destroy(whatIHit.gameObject);
             Destroy(this.gameObject);
         }
+        else if (whatIHit.tag == "Shield")
+        {
+            GameObject.Find("GameManager").GetComponent<GameManager>().EarnScore(1);
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            Destroy(this.gameObject);
+        }
     }
 }

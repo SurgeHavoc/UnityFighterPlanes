@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public AudioClip powerdownSound;
     private bool betterWeapon;
     public GameObject thruster;
+    public GameObject shield;
 
     // Start is called before the first frame update
     void Start()
@@ -121,7 +122,9 @@ public class Player : MonoBehaviour
                 } else if (tempInt == 3)
                 {
                     //Shield Powerup
+                    StartCoroutine("ShieldPowerDown");
                     gM.GetComponent<GameManager>().PowerupChange("Shield");
+                    shield.SetActive(true);
                 }
                 break;
         }
@@ -141,6 +144,14 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(4f);
         AudioSource.PlayClipAtPoint(powerdownSound, transform.position);
         betterWeapon = false;
+        gM.GetComponent<GameManager>().PowerupChange("No Powerup");
+    }
+
+    IEnumerator ShieldPowerDown()
+    {
+        yield return new WaitForSeconds(4f);
+        AudioSource.PlayClipAtPoint(powerdownSound, transform.position);
+        shield.SetActive(false);
         gM.GetComponent<GameManager>().PowerupChange("No Powerup");
     }
 
